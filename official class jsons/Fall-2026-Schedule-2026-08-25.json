@@ -1,0 +1,215 @@
+{
+  "version": 1,
+  "timeZone": "America/La_Paz",
+  "term": {
+    "id": "fall2026",
+    "name": "Fall 2026",
+    "year": 2026,
+    "startDate": "2026-08-26",
+    "endDate": "2026-12-11"
+  },
+  "student": {
+    "name": "Masa de Man"
+  },
+  "classes": [
+    {
+      "title": "Software Engineering Intensive (Astra Currency Software)",
+      "teachers": [
+        "Rolando Lopez"
+      ],
+      "optional": false,
+      "days": [
+        "Tuesday",
+        "Thursday"
+      ],
+      "startTime": "10:00",
+      "endTime": "11:00",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/2213008537",
+      "description": "In this course, we work together to build/maintain software that allows students to use Astras (an in-school currency) to make purchases from other students at the school. The hope is that we can bring back Bazaar, an event where students can advertise and sell goods and services to each other!"
+    },
+    {
+      "title": "Social Entrepreneurship",
+      "teachers": [
+        "Aaron Sitze"
+      ],
+      "optional": false,
+      "days": [
+        "Wednesday"
+      ],
+      "startTime": "10:00",
+      "endTime": "11:00",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/2308230724",
+      "description": "The world's most important problems will be solved by people who can imagine something better... and actually build it. In this course, you'll learn to think like an entrepreneur: value propositions, business models, forms of capital. But rather than simply asking, \"How do we build a successful business?\" we'll ask a bigger question: \"How can we make a difference?\" Through the lens of \"social entrepreneurship,\" you'll explore how businesses can help solve social, economic, and environmental challenges. First half: build a foundation of entrepreneurial concepts. Second half: design your own social enterprise that you pitch to an Astra Nova Shark Tank."
+    },
+    {
+      "title": "Photoshop",
+      "teachers": [
+        "Juliana Paciulli"
+      ],
+      "optional": false,
+      "days": [
+        "Friday"
+      ],
+      "startTime": "10:00",
+      "endTime": "11:00",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/5582440801",
+      "description": "Have you ever wondered what you would look like on the moon? Or in Antarctica? Then join us for a deep dive into the vast world of Photoshop. Unlike other imaging programs, Photoshop gives the user much more control, allowing you, and not an algorithm, to be at the helm of your creation. Together we will learn about the history and practice of creatively manipulating photographs through projects that combine skill building with innovative thinking."
+    },
+    {
+      "title": "Flash Class",
+      "teachers": [],
+      "optional": true,
+      "days": [
+        "Monday"
+      ],
+      "startTime": "10:30",
+      "endTime": "11:15",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/9013143189",
+      "description": "Join us each week for an exciting Flash Class, led by one of our teachers!\nOptional event: Open to all students."
+    },
+    {
+      "title": "C Programming for Engineers",
+      "teachers": [
+        "Joe Collard"
+      ],
+      "optional": false,
+      "days": [
+        "Monday",
+        "Wednesday"
+      ],
+      "startTime": "11:30",
+      "endTime": "12:30",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/4597924131",
+      "description": "This course is a challenging introduction to the C programming language and embedded systems programming, designed for students who have completed an introductory programming course. Students will learn to write, compile, and debug C programs while exploring how software interacts directly with hardware. The course covers foundational concepts in microcontroller architecture, data types, and memory constraints that are essential to understanding how real computing hardware works. Successful completion of this course prepares students for future engineering and computer science courses that require low-level programming skills."
+    },
+    {
+      "title": "The Second World War",
+      "teachers": [
+        "Ian Boyd"
+      ],
+      "optional": false,
+      "days": [
+        "Tuesday",
+        "Thursday"
+      ],
+      "startTime": "11:30",
+      "endTime": "12:30",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/3666928616",
+      "description": "The Second World War was the deadliest conflict in human history and the defining conflict of the twentieth century. The legacy of the war is still felt today. In this course, students will learn about the causes, conflicts, and consequences of WWII and its lingering influence on the modern world."
+    },
+    {
+      "title": "Morning Meeting",
+      "teachers": [],
+      "optional": true,
+      "days": [
+        "Friday"
+      ],
+      "startTime": "12:40",
+      "endTime": "13:00",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/9013143189",
+      "description": "Join us at Morning Meeting every Friday for announcements and student led Spark Talks!"
+    },
+    {
+      "title": "Precalculus",
+      "teachers": [
+        "Ilya Tsinis"
+      ],
+      "optional": false,
+      "days": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday"
+      ],
+      "startTime": "13:00",
+      "endTime": "14:00",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/3753547546",
+      "description": "An intensive precalculus course where the skills from Algebra 2, Geometry, and basic trigonometry knowledge will be extended into advanced trigonometry and applications to geometry (e.g. sum-of-angle formulas, law of cosines, law of sines), a deeper understanding of complex numbers (e.g. exponential form, roots of unity, rotations), and a heavy emphasis on vectors and matrices (e.g. matrix multiplication, determinants, geometric interpretations, dot and cross products). This course is designed to prepare students with a solid foundation for calculus (as well as other areas of science including physics)."
+    },
+    {
+      "title": "Corporate Collaborative [Graduation-Track High School Students]",
+      "teachers": [
+        "Josh Dahn"
+      ],
+      "optional": false,
+      "days": [
+        "Friday"
+      ],
+      "startTime": "13:00",
+      "endTime": "14:00",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/9013143189",
+      "description": "This class prepares students for the on-site Corporate Collaborative in El Segundo, California, in June 2027. Students will explore the partner company’s mission, challenges, and strategic direction while developing interest-based projects connected to its work."
+    },
+    {
+      "title": "Mathematical Modeling",
+      "teachers": [
+        "Emilee Carson"
+      ],
+      "optional": false,
+      "days": [
+        "Tuesday",
+        "Thursday"
+      ],
+      "startTime": "14:30",
+      "endTime": "15:30",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/2162622632",
+      "description": "This course will introduce students to the world of mathematical modeling. Students will gain experience creating mathematical models to represent real-world systems in a variety of contexts. Students will learn about various tools and techniques that they can use to help them analyze and make predictions using these models. Students will have the opportunity to apply what they have learned to COMAP's Middle Mathematical Contest in Modeling."
+    },
+    {
+      "title": "Astra Nova Book Club",
+      "teachers": [],
+      "optional": true,
+      "days": [
+        "Wednesday"
+      ],
+      "startTime": "16:45",
+      "endTime": "17:30",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/7737350759",
+      "description": "Join us to read and discuss a book the group has voted on! \nOptional event: Open to all students."
+    },
+    {
+      "title": "Formula 1 Design Course",
+      "teachers": [
+        "Emilee Carson"
+      ],
+      "optional": false,
+      "days": [
+        "Tuesday",
+        "Thursday"
+      ],
+      "startTime": "17:30",
+      "endTime": "18:30",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/2162622632",
+      "description": "This class provides a look at the physics and math involved in Formula 1 racing. We will explore various aspects of Formula 1 racing including power unit design, aerodynamics, tire engineering, strategy, and more. Students will have the opportunity to design various components of a Formula 1 car using Fusion and similar technical tools."
+    },
+    {
+      "title": "Introduction to Linear Algebra",
+      "teachers": [
+        "Emilee Carson"
+      ],
+      "optional": false,
+      "days": [
+        "Tuesday",
+        "Thursday"
+      ],
+      "startTime": "19:00",
+      "endTime": "20:00",
+      "endsNextDay": false,
+      "zoomUrl": "https://us02web.zoom.us/j/2162622632",
+      "description": "This course offers students an introduction to Linear Algebra. Students will gain a deep understanding of the foundations of linear algebra. Topics will include vectors, matrices, vector/matrix operations, vector spaces and subspaces, and systems of linear equations. This course is designed to provide students with the tools they need to explore applications of linear algebra."
+    }
+  ],
+  "unscheduled": []
+}
