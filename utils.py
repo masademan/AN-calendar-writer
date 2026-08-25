@@ -16,9 +16,10 @@ def split_hrs_mins(time: str):
     hrs, mins = time.split(":")
     return int(hrs), int(mins)
 
-def convert_time(time, days, is_24_hr=False):
+def convert_time(time, days, is_24_hr=False, IANA_timezone=None):
     now = datetime.now()
-    local_tz = now.astimezone().tzinfo
+    if not IANA_timezone: local_tz = now.astimezone().tzinfo
+    else: local_tz = ZoneInfo(IANA_timezone)
 
     sorted_days = sorted(days, key=lambda day: constants.SCHOOL_DAYS.index(day))
     days_from_now = (constants.ALL_DAYS.index(sorted_days[0]) - int(now.strftime("%w")))%7
