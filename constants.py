@@ -20,7 +20,7 @@ EMPTY_CLASS_DATA = ("", {"days": [], "start_time": "-00:00", "end_time": "-00:00
 
 # Google calendar data
 CREDENTIALS_JSON_FILE = 'credentials/service_credentials.json'
-CALENDAR_ID = '71b457dede6c928cd9a1cafb0c114e792ab61054a478654fdb292f88965b839e@group.calendar.google.com'
+CALENDAR_ID = '[YOUR CALENDAR ID]@group.calendar.google.com'
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 SCHOOL_TO_CALENDAR_FORMAT = {
     "mon": "MO",
