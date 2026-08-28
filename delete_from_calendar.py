@@ -8,6 +8,66 @@ from read_class_data import read_term_data
 from googleapiclient.discovery import build
 
 
+def delete_all_events_between_range(start_dt: datetime, end_dt: datetime, verbosity=2):
+    creds = service_account.Credentials.from_service_account_file(constants.CREDENTIALS_JSON_FILE, scopes=constants.SCOPES)
+    service = build("calendar", "v3", credentials=creds)
+
+    try:
+        page_token = None
+        deleted_master_ids = set() # Tracks series we've already deleted
+
+        while True:
+            # We MUST use singleEvents=True to reliably find overlapping events
+            events_result = service.events().list(
+                calendarId=constants.CLASS_CALENDAR_ID,
+                timeMin=start_dt.isoformat(),
+                timeMax=end_dt.isoformat(),
+                singleEvents=True, 
+                orderBy='startTime',
+                pageToken=page_token
+            ).execute()
+
+            events = events_result.get("items", [])
+
+            if not events and not deleted_master_ids:
+                if verbosity == 2:
+                    print("No events found in this range.")
+                return
+
+            for event in events:
+                event_name = event.get("summary", "Unnamed Event")
+                
+                # Fallback to the standard 'id' if it's a one-off event, 
+                # but grab the 'recurringEventId' (Master ID) if it repeats
+                master_id = event.get("recurringEventId", event["id"])
+                
+                # If we already wiped out this series, skip to the next event
+                if master_id in deleted_master_ids:
+                    continue
+
+                if verbosity == 2:
+                    print(f"Deleting series: {event_name}")
+
+                # Deleting the Master ID wipes out the entire recurring series in one call
+                service.events().delete(
+                    calendarId=constants.CLASS_CALENDAR_ID, 
+                    eventId=master_id
+                ).execute()
+                
+                deleted_master_ids.add(master_id)
+
+            page_token = events_result.get('nextPageToken')
+            if not page_token:
+                break
+
+        if verbosity >= 1:
+            print(f"Success! Deleted {len(deleted_master_ids)} unique series/events.")
+
+    except Exception as e:
+        if verbosity >= 1:
+            print(f"An error occurred: {e}")
+
+
 def delete_calendar_event(event_name_to_delete, verbosity=2, time_range: tuple[datetime, datetime] | None = None):
     # 1. Authenticate using the service account
     creds = service_account.Credentials.from_service_account_file(constants.CREDENTIALS_JSON_FILE, scopes=constants.SCOPES)
@@ -72,13 +132,16 @@ def delete_calendar_event(event_name_to_delete, verbosity=2, time_range: tuple[d
             print(f"An error occurred: {e}")
 
 
-def delete_all_term_classes(term_data, verbosity=2):
-    for class_name in tqdm(term_data["classes"], disable=verbosity != 0):
-        local_tz = ZoneInfo(constants.IANA_KEY_SCHOOL_TIMEZONE)
-        start_dt = datetime.strptime(term_data["start_date"], constants.DATE_FORMAT).replace(tzinfo=local_tz)
-        end_dt = datetime.strptime(term_data["end_date"], constants.DATE_FORMAT).replace(hour=23, minute=59, second=59, tzinfo=local_tz)
+def delete_all_term_classes(term_data, verbosity=2, delete_by_name=True):
+    local_tz = ZoneInfo(constants.IANA_KEY_SCHOOL_TIMEZONE)
+    start_dt = datetime.strptime(term_data["start_date"], constants.DATE_FORMAT).replace(tzinfo=local_tz)
+    end_dt = datetime.strptime(term_data["end_date"], constants.DATE_FORMAT).replace(hour=23, minute=59, second=59, tzinfo=local_tz)
 
-        delete_calendar_event(class_name, time_range=(start_dt, end_dt), verbosity=verbosity)
+    if delete_by_name:
+        for class_name in tqdm(term_data["classes"], disable=verbosity != 0):
+            delete_calendar_event(class_name, time_range=(start_dt, end_dt), verbosity=verbosity)
+    else:
+        delete_all_events_between_range(start_dt, end_dt, verbosity=verbosity)
 
 
 def clear_day_of_events(target_date, verbosity=2):
@@ -149,7 +212,9 @@ def main():
     clear_console()
 
     term_data = read_term_data()
-    delete_all_term_classes(term_data, verbosity=0)
+
+    # Setting delete_by_name technically makes it faster, but can miss it if the event name is different from the stored class name
+    delete_all_term_classes(term_data, verbosity=0, delete_by_name=False)
 
 
 if __name__ == "__main__":
