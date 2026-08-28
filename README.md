@@ -1,11 +1,12 @@
 Follow this tutorial to create a project: https://developers.google.com/workspace/calendar/api/quickstart/python \
-After that, go to IAM & Admin -> Service Accounts and make a service account with Owner permissions. Then create a new key for the service account \
-Upload the service account key credentials as "service_credentials.json" \
-Add the service account's email as an editor and manager of the Google Calendar you want to be writing to \
-Edit the constants.py file and make the variable "CLASS_CALENDAR_ID" the Google Calendar ID of the Google Calendar you want to edit
+After that, go to IAM & Admin -> Service Accounts and make a service account with Owner permissions. Then create a new key for the service account. \
+Upload the service account key credentials as "service_credentials.json". \
+Add the service account's email as an editor and manager of the Google Calendar you want to be writing to.
 
-And if you have another Google Calendar of the days off, add the service account to that calendar and make the permissions be able to read it.\
-You can allow the service account to make changes if you want, but it's not necessary.\
+Edit the constants.py file and make the variable "CLASS_CALENDAR_ID" the Google Calendar ID of the Google Calendar you want to edit.
+
+And if you have another Google Calendar of the days off, add the service account to that calendar and make the permissions be able to read it. \
+You can allow the service account to make changes if you want, but it's not necessary. \
 Then edit the variable "VACATION_CALENDAR_ID" to make it the Google Calendar ID of the Calendar with the days off listed.
 
 To use the code:

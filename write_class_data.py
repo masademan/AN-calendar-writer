@@ -176,7 +176,7 @@ def get_beginning_school_year(start_date):
         return start_date_obj.year
     return start_date_obj.year - 1
 
-def convert_term_data():
+def convert_term_data(include_optional_classes=True):
     offical_term_data = read_json("official class jsons/" + get_official_json_file_path())
     
     # Get start date
@@ -190,6 +190,9 @@ def convert_term_data():
     time_zone = offical_term_data["timeZone"]
 
     for single_class in offical_term_data["classes"]:
+        if single_class["optional"] and not include_optional_classes:
+            continue
+
         class_name, official_class_data = convert_one_class_data(single_class, time_zone)
         class_data[class_name] = official_class_data
 
@@ -298,7 +301,7 @@ def get_holidays_and_format(start_date, end_date):
 
     return holiday_dates_str
 
-def get_term_data(has_file=False, classes_to_ignore=[]):
+def get_term_data(has_file=False, classes_to_ignore=[], include_optional_classes=True):
     all_data = {}
 
     file_path = ""
@@ -306,7 +309,7 @@ def get_term_data(has_file=False, classes_to_ignore=[]):
         class_data = get_all_class_data()
         start_date, end_date = get_start_end_dates()
     else:
-        class_data, start_date, end_date, file_path = convert_term_data()
+        class_data, start_date, end_date, file_path = convert_term_data(include_optional_classes)
 
     if has_holidays_calendar_id():
         holidays = get_holidays_and_format(start_date, end_date)
@@ -332,8 +335,8 @@ def write_data(data, file_name: str, readable=False):
         else:
             json.dump(data, f)
 
-def write_term_data(has_file=False, readable=False, classes_to_ignore=[]):
-    term_data, file_path = get_term_data(has_file, classes_to_ignore)
+def write_term_data(has_file=False, readable=False, classes_to_ignore=[], include_optional_classes=True):
+    term_data, file_path = get_term_data(has_file, classes_to_ignore, include_optional_classes)
     if not file_path:
         file_path = get_class_data_file_name(term_data["start_date"].split(", ")[-1])
 
@@ -353,5 +356,6 @@ if __name__ == "__main__":
             input("Press continue to try again")
             continue
         break
+    # write_term_data(has_file=answer=="y", readable=True, include_optional_classes=False)
     write_term_data(has_file=answer=="y", readable=True, classes_to_ignore=["Astra Nova Book Club"])
     # write_term_data(has_file=answer=="y", readable=True)
