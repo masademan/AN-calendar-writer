@@ -10,6 +10,12 @@ You can allow the service account to make changes if you want, but it's not nece
 Then edit the variable "VACATION_CALENDAR_ID" to make it the Google Calendar ID of the Calendar with the days off listed.
 
 To use the code:
-1. If you already have a .json file of a term and year created from this program, skip to the next step. If not, run "py write_class_data.py" and follow the prompts
-2. To write the .json file to a Google calendar, run "py write_to_calendar.py". This .json accounts for holidays as well
-3. To delete all the classes from a term from a Google calendar, run "py delete_from_calendar.py". This is useful to try refreshing what's in the calendar for a term
+1. Run "py main.py" and start following the prompts
+2. If you already have a .json file of a term and year created from this program, skip to the next step. If not, select the "Write to json" option and continue
+3. To write the .json file to a Google calendar, select the "Write to calendar" action. This uses the .json file from before and write it to your calendar
+4. To delete all the classes from a term from a Google calendar, select the "Delete from calendar" option. This is useful to try refreshing what's in the calendar for a term
+5. To stop the program, select the "Quit" option
+
+When it asks for the term (Fall/Winter/Spring) and the starting year, the program is figuring out which .json file to use and which holidays to account for. \
+Just fill in the term name as well as the starting year to write the right data for that given term and school year. \
+By starting year, the program is asking for the year that the school year started.

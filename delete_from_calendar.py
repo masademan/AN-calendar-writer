@@ -2,6 +2,7 @@ import constants
 from tqdm import tqdm
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from utils import clear_console
 from google.oauth2 import service_account
 from read_class_data import read_term_data
 from googleapiclient.discovery import build
@@ -75,9 +76,8 @@ def delete_all_term_classes(term_data, verbosity=2):
     for class_name in tqdm(term_data["classes"], disable=verbosity != 0):
         local_tz = ZoneInfo(constants.IANA_KEY_SCHOOL_TIMEZONE)
         start_dt = datetime.strptime(term_data["start_date"], constants.DATE_FORMAT).replace(tzinfo=local_tz)
-        end_dt = datetime.strptime(term_data["end_date"], constants.DATE_FORMAT).replace(
-            hour=23, minute=59, second=59, tzinfo=local_tz)
-        
+        end_dt = datetime.strptime(term_data["end_date"], constants.DATE_FORMAT).replace(hour=23, minute=59, second=59, tzinfo=local_tz)
+
         delete_calendar_event(class_name, time_range=(start_dt, end_dt), verbosity=verbosity)
 
 
@@ -145,6 +145,12 @@ def clear_all_term_holidays(term_data, verbosity=2):
         clear_day_of_events(holiday_date, verbosity)
 
 
-if __name__ == "__main__":
+def main():
+    clear_console()
+
     term_data = read_term_data()
-    delete_all_term_classes(term_data, verbosity=0)
+    # delete_all_term_classes(term_data, verbosity=0)
+
+
+if __name__ == "__main__":
+    main()

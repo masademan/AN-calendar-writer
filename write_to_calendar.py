@@ -1,10 +1,10 @@
 import constants
 from tqdm import tqdm
-from utils import split_hrs_mins
 from datetime import datetime, timedelta
 from google.oauth2 import service_account
 from read_class_data import read_term_data
 from googleapiclient.discovery import build
+from utils import split_hrs_mins, clear_console
 from delete_from_calendar import clear_all_term_holidays
 
 
@@ -84,12 +84,18 @@ def add_all_classes(term_data, verbosity=2):
         add_one_class(term_data, class_name, verbosity)
 
 
-if __name__ == "__main__":
+def main():
+    clear_console()
+
     term_data = read_term_data()
     print("Adding all the classes")
-    add_all_classes(term_data, verbosity=0)
+    # add_all_classes(term_data, verbosity=0)
 
     print("\nRemoving events on holidays")
-    clear_all_term_holidays(term_data, verbosity=0)
+    # clear_all_term_holidays(term_data, verbosity=0)
 
     print()
+
+
+if __name__ == "__main__":
+    main()

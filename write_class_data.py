@@ -6,10 +6,12 @@ from datetime import datetime
 from read_class_data import read_json
 from read_from_calendar import find_holiday_dates
 from utils import (
+    make_choice,
     convert_time,
     clear_console,
     get_class_data_file_name,
 )
+
 
 def get_one_class_data():
     print("Enter '\\q' at any time to quit")
@@ -17,17 +19,17 @@ def get_one_class_data():
     if "\\q" in class_name:
         print("Found quit command in 'class name'")
         return "\\q", constants.EMPTY_CLASS_DATA[1], True
-    
+
     start_time = input("Start time (local time): ").lower().lstrip().rstrip()
     if "\\q" in start_time:
         print("Found quit command in 'start time'")
         return "\\q", constants.EMPTY_CLASS_DATA[1], True
-    
+
     end_time = input("End time (local time): ").lower().lstrip().rstrip()
     if "\\q" in end_time:
         print("Found quit command in 'end time'")
         return "\\q", constants.EMPTY_CLASS_DATA[1], True
-    
+
     days = input("Days (3 letter form, separated by ','): ").lower()
     if "\\q" in days:
         print("Found quit command in 'days'")
@@ -45,10 +47,7 @@ def get_one_class_data():
 
     # Checking times
     time_errors = []
-    is_24_hr = {
-        "start_time": False,
-        "end_time": False
-    }
+    is_24_hr = {"start_time": False, "end_time": False}
     for time_type, time in zip(["start_time", "end_time"], [start_time, end_time]):
         split_time = time.split(" ")
         hrs = split_time[0].split(":")[0]
@@ -78,7 +77,8 @@ def get_one_class_data():
             print(f"-- {error}", file=sys.stderr)
         stop_program = True
     if time_errors:
-        if not stop_program: print()
+        if not stop_program:
+            print()
         print("Time formatting errors:", file=sys.stderr)
         for error in time_errors:
             print(f"-- {error}", file=sys.stderr)
@@ -94,6 +94,7 @@ def get_one_class_data():
     }
 
     return class_name, data_dict, day_errors != [] or time_errors != []
+
 
 def get_all_class_data():
     data = {}
@@ -122,30 +123,11 @@ def get_all_class_data():
     clear_console()
     return data
 
+
 def get_official_json_file_path():
     files = [f for f in os.listdir("./official class jsons/")]
+    return make_choice(files, "Which file do you want? ")
 
-    while True:
-        clear_console()
-        for i, file in enumerate(files):
-            print(f"{i + 1}: '{file}'")
-        print()
-        answer = input("Which file do you want? ")
-        if not answer.isnumeric():
-            print("Invalid answer, must be a number")
-            input("Press enter to try again")
-            continue
-        answer = int(answer)
-        if answer > len(files):
-            print("That number was too big")
-            input("Press enter to try again")
-            continue
-        if answer < 1:
-            print("That number was too small")
-            input("Press enter to try again")
-            continue
-        break
-    return files[answer - 1]
 
 def convert_one_class_data(official_class_data, time_zone):
     # Class name
@@ -153,7 +135,7 @@ def convert_one_class_data(official_class_data, time_zone):
 
     # Start time
     start_time = official_class_data["startTime"]
-    
+
     # End time
     end_time = official_class_data["endTime"]
 
@@ -168,6 +150,7 @@ def convert_one_class_data(official_class_data, time_zone):
 
     return class_name, data_dict
 
+
 def get_beginning_school_year(start_date):
     start_date_obj = datetime.strptime(start_date, constants.DATE_FORMAT)
     july_of_the_year = datetime(year=start_date_obj.year, month=7, day=15)
@@ -176,9 +159,11 @@ def get_beginning_school_year(start_date):
         return start_date_obj.year
     return start_date_obj.year - 1
 
-def convert_term_data(include_optional_classes=True):
-    offical_term_data = read_json("official class jsons/" + get_official_json_file_path())
-    
+
+def convert_term_data(include_optional_classes=True, include_official_json: bool = False):
+    offical_term_data_path = "official class jsons/" + get_official_json_file_path()
+    offical_term_data = read_json(offical_term_data_path)
+
     # Get start date
     start_date = datetime.strptime(offical_term_data["term"]["startDate"], "%Y-%m-%d").strftime(constants.DATE_FORMAT)
 
@@ -200,7 +185,10 @@ def convert_term_data(include_optional_classes=True):
     beginning_school_year = get_beginning_school_year(start_date)
     file_path = f"class jsons/{offical_term_data["term"]["name"].split(" ")[0].lower()}_{beginning_school_year}_{beginning_school_year + 1}.json"
 
+    if include_official_json:
+        return class_data, start_date, end_date, file_path, offical_term_data_path
     return class_data, start_date, end_date, file_path
+
 
 def get_start_end_dates():
     start_date_str = input("When does the term start? (example 'Aug 26, 2026'): ")
@@ -217,7 +205,7 @@ def get_start_end_dates():
         errors.append(f"Start date '{start_date_str}' was not formatted correctly")
     except:
         errors.append(f"Another error occurred when trying to process start date '{start_date_str}'")
-        
+
     # Check end date
     try:
         end_date = datetime.strptime(end_date_str, constants.DATE_FORMAT)
@@ -233,6 +221,7 @@ def get_start_end_dates():
         sys.exit(-1)
 
     return start_date.strftime(constants.DATE_FORMAT), end_date.strftime(constants.DATE_FORMAT)
+
 
 def get_one_holiday():
     holiday_date_str = input("When is one of the holidays? (example 'Dec 25, 2026'): ")
@@ -259,6 +248,7 @@ def get_one_holiday():
 
     return holiday_date.strftime(constants.DATE_FORMAT), errors != []
 
+
 def get_holidays():
     data = set()
 
@@ -283,10 +273,12 @@ def get_holidays():
     clear_console()
     return sorted(list(data), key=lambda date: datetime.strptime(date, constants.DATE_FORMAT))
 
+
 def has_holidays_calendar_id():
     return hasattr(constants, "VACATION_CALENDAR_ID") and constants.VACATION_CALENDAR_ID != "[VACATION CALENDAR ID]@group.calendar.google.com"
 
-def get_holidays_and_format(start_date, end_date):
+
+def get_holidays_and_format(start_date: datetime, end_date: datetime):
     holiday_data = find_holiday_dates(start_date, end_date)
 
     holiday_dates: list[datetime] = []
@@ -301,15 +293,21 @@ def get_holidays_and_format(start_date, end_date):
 
     return holiday_dates_str
 
-def get_term_data(has_file=False, classes_to_ignore=[], include_optional_classes=True):
+
+def get_term_data(
+    has_file=False, classes_to_ignore=[], include_optional_classes=True, separated_data: tuple[dict[str, dict | str], str, str, str] | None = None
+):
     all_data = {}
 
-    file_path = ""
-    if not has_file:
-        class_data = get_all_class_data()
-        start_date, end_date = get_start_end_dates()
+    if not separated_data:
+        file_path = ""
+        if not has_file:
+            class_data = get_all_class_data()
+            start_date, end_date = get_start_end_dates()
+        else:
+            class_data, start_date, end_date, file_path = convert_term_data(include_optional_classes)
     else:
-        class_data, start_date, end_date, file_path = convert_term_data(include_optional_classes)
+        class_data, start_date, end_date, file_path = separated_data
 
     if has_holidays_calendar_id():
         holidays = get_holidays_and_format(start_date, end_date)
@@ -326,8 +324,10 @@ def get_term_data(has_file=False, classes_to_ignore=[], include_optional_classes
 
     return all_data, file_path
 
+
 def write_data(data, file_name: str, readable=False):
-    if not file_name.endswith(".json"): file_name += ".json"
+    if not file_name.endswith(".json"):
+        file_name += ".json"
 
     with open(file_name, "w") as f:
         if readable:
@@ -335,8 +335,42 @@ def write_data(data, file_name: str, readable=False):
         else:
             json.dump(data, f)
 
-def write_term_data(has_file=False, readable=False, classes_to_ignore=[], include_optional_classes=True):
-    term_data, file_path = get_term_data(has_file, classes_to_ignore, include_optional_classes)
+
+def choose_classes_to_ignore(json_file_path: str, include_optional_classes: bool) -> list[str]:
+    class_data = read_json(json_file_path)
+
+    all_classes = []
+    for single_class in class_data["classes"]:
+        if single_class["optional"] and not include_optional_classes:
+            continue
+
+        class_name, _ = convert_one_class_data(single_class, class_data["timeZone"])
+        all_classes.append(class_name)
+
+    classes_to_ignore = []
+
+    STOPPING_KEY_WORD = "No more events to ignore"
+
+    while True:
+        class_choice = make_choice(all_classes + [STOPPING_KEY_WORD], "Which event do you want to not include in the calendar? ", use_quotes=False)
+
+        if class_choice == STOPPING_KEY_WORD:
+            break
+
+        classes_to_ignore.append(class_choice)
+        all_classes.pop(all_classes.index(class_choice))
+
+    return classes_to_ignore
+
+
+def write_term_data(
+    has_file=False,
+    readable=False,
+    classes_to_ignore=[],
+    include_optional_classes=True,
+    separated_data: tuple[dict[str, dict | str], str, str, str] | None = None,
+):
+    term_data, file_path = get_term_data(has_file, classes_to_ignore, include_optional_classes, separated_data)
     if not file_path:
         file_path = get_class_data_file_name(term_data["start_date"].split(", ")[-1])
 
@@ -348,14 +382,54 @@ def write_term_data(has_file=False, readable=False, classes_to_ignore=[], includ
 
     write_data(term_data, file_path, readable=readable)
 
-if __name__ == "__main__":
+    print(f"Data file saved at '{file_path}'")
+
+
+def get_yn_answer_to_question(question: str) -> bool:
     while True:
-        answer = input("Do you have a .json from the AN schedule? (y/n) ")
+        clear_console()
+        answer = input(question)
         if answer not in "yn":
             print(f"Your answer '{answer}' is invalid, try again")
             input("Press continue to try again")
             continue
         break
+
+    return answer == "y"
+
+
+def main():
+    json_answer = get_yn_answer_to_question("Do you have a .json from the AN schedule? (y/n) ")
+
+    separated_data = None
+    classes_to_ignore = []
+    include_optional_classes = True
+    if json_answer:
+        separated_data = convert_term_data(include_official_json=True)
+
+        include_optional_classes = get_yn_answer_to_question("Do you want to have the optional events in your calendar? (y/n) ")
+
+        if include_optional_classes:
+            ignore_answer = get_yn_answer_to_question("Are there specific events you don't want to include in your calendar? (y/n) ")
+        else:
+            ignore_answer = get_yn_answer_to_question("Are there other events you don't want to include in your calendar? (y/n) ")
+        if ignore_answer:
+            classes_to_ignore = choose_classes_to_ignore(json_file_path=separated_data[4], include_optional_classes=include_optional_classes)
+
+    # write_term_data(
+    #     has_file=json_answer,
+    #     readable=True,
+    #     classes_to_ignore=classes_to_ignore,
+    #     include_optional_classes=include_optional_classes,
+    #     separated_data=separated_data[:4],
+    # )
+
+    # write_term_data(has_file=answer=="y", readable=True, classes_to_ignore=["Astra Nova Book Club"])
+
+
+if __name__ == "__main__":
+    main()
+
     # write_term_data(has_file=answer=="y", readable=True, include_optional_classes=False)
-    write_term_data(has_file=answer=="y", readable=True, classes_to_ignore=["Astra Nova Book Club"])
+    # write_term_data(has_file=answer=="y", readable=True, classes_to_ignore=["Astra Nova Book Club"])
     # write_term_data(has_file=answer=="y", readable=True)
