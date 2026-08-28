@@ -4,6 +4,7 @@ import json
 import constants
 from datetime import datetime
 from read_class_data import read_json
+from read_from_calendar import find_holiday_dates
 from utils import (
     convert_time,
     clear_console,
@@ -279,6 +280,24 @@ def get_holidays():
     clear_console()
     return sorted(list(data), key=lambda date: datetime.strptime(date, constants.DATE_FORMAT))
 
+def has_holidays_calendar_id():
+    return hasattr(constants, "VACATION_CALENDAR_ID") and constants.VACATION_CALENDAR_ID != "[VACATION CALENDAR ID]@group.calendar.google.com"
+
+def get_holidays_and_format(start_date, end_date):
+    holiday_data = find_holiday_dates(start_date, end_date)
+
+    holiday_dates: list[datetime] = []
+    for item in holiday_data:
+        holiday_dates.append(datetime.strptime(item["date"], "%Y-%m-%d"))
+
+    holiday_dates.sort()
+
+    holiday_dates_str = []
+    for holiday_date in holiday_dates:
+        holiday_dates_str.append(holiday_date.strftime(constants.DATE_FORMAT))
+
+    return holiday_dates_str
+
 def get_term_data(has_file=False, classes_to_ignore=[]):
     all_data = {}
 
@@ -289,7 +308,10 @@ def get_term_data(has_file=False, classes_to_ignore=[]):
     else:
         class_data, start_date, end_date, file_path = convert_term_data()
 
-    holidays = get_holidays()
+    if has_holidays_calendar_id():
+        holidays = get_holidays_and_format(start_date, end_date)
+    else:
+        holidays = get_holidays()
 
     for class_name in classes_to_ignore:
         class_data.pop(class_name, None)
@@ -332,3 +354,4 @@ if __name__ == "__main__":
             continue
         break
     write_term_data(has_file=answer=="y", readable=True, classes_to_ignore=["Astra Nova Book Club"])
+    # write_term_data(has_file=answer=="y", readable=True)
