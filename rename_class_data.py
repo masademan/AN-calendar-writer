@@ -8,20 +8,23 @@ def main():
     term_data_file_path = get_class_data_file_name()
 
     current_term_data = read_json(term_data_file_path)
+    class_data = current_term_data["classes"]
     ANSWER_TO_STOP = "Quit"
 
     while True:
-        current_class_names = list(current_term_data["classes"].keys())
+        current_class_names = list(class_data.keys())
 
         class_to_rename = make_choice(current_class_names + [ANSWER_TO_STOP], "Which class do you want to rename, or do you want to quit? ", use_quotes=False)
 
         if class_to_rename == ANSWER_TO_STOP:
             break
 
+        clear_console()
         new_class_name = input(f"What do you want to rename '{class_to_rename}' to?\n")
 
-        current_term_data["classes"][new_class_name] = current_term_data["classes"].pop(class_to_rename)
+        class_data[new_class_name] = class_data.pop(class_to_rename)
 
+    current_term_data["classes"] = class_data
     write_data(current_term_data, term_data_file_path, readable=True)
 
 if __name__ == "__main__":
