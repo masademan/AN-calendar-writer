@@ -1,4 +1,3 @@
-import os
 import sys
 import json
 from utils import get_class_data_file_name
@@ -15,14 +14,14 @@ def read_json(file_path: str):
     except json.JSONDecodeError:
         print("Error: The file contains invalid JSON formatting", file=sys.stderr)
         sys.exit(-1)
+    except Exception as e:
+        raise e
 
     return data
 
 def read_term_data():
     file_path = get_class_data_file_name()
-    if os.path.exists(file_path):
-        return read_json(file_path)
-    return None
+    return read_json(file_path)
 
 if __name__ == "__main__":
     data = read_term_data()
