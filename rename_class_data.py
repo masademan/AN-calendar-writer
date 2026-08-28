@@ -18,7 +18,7 @@ def main():
         if class_to_rename == ANSWER_TO_STOP:
             break
 
-        new_class_name = input("What do you want to rename the class to? ")
+        new_class_name = input(f"What do you want to rename '{class_to_rename}' to?\n")
 
         current_term_data["classes"][new_class_name] = current_term_data["classes"].pop(class_to_rename)
 
