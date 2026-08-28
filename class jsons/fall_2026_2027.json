@@ -1,105 +1,17 @@
 {
     "classes": {
-        "Flash Class": {
-            "days": [
-                "mon"
-            ],
-            "start_time": "07:30",
-            "end_time": "08:15"
-        },
-        "C Programming for Engineers": {
-            "days": [
-                "mon",
-                "wed"
-            ],
-            "start_time": "08:30",
-            "end_time": "09:30"
-        },
-        "Precalculus": {
+        "Test class": {
             "days": [
                 "mon",
                 "tue",
-                "wed",
-                "thu"
-            ],
-            "start_time": "10:00",
-            "end_time": "11:00"
-        },
-        "Software Engineering Intensive": {
-            "days": [
-                "tue",
                 "thu"
             ],
             "start_time": "07:00",
             "end_time": "08:00"
-        },
-        "The Second World War": {
-            "days": [
-                "tue",
-                "thu"
-            ],
-            "start_time": "08:30",
-            "end_time": "09:30"
-        },
-        "Mathematical Modeling": {
-            "days": [
-                "tue",
-                "thu"
-            ],
-            "start_time": "11:30",
-            "end_time": "12:30"
-        },
-        "Formula 1 Design Course": {
-            "days": [
-                "tue",
-                "thu"
-            ],
-            "start_time": "14:30",
-            "end_time": "15:30"
-        },
-        "Introduction to Linear Algebra": {
-            "days": [
-                "tue",
-                "thu"
-            ],
-            "start_time": "16:00",
-            "end_time": "17:00"
-        },
-        "Social Entrepreneurship": {
-            "days": [
-                "wed"
-            ],
-            "start_time": "07:00",
-            "end_time": "08:00"
-        },
-        "Photoshop": {
-            "days": [
-                "fri"
-            ],
-            "start_time": "07:00",
-            "end_time": "08:00"
-        },
-        "Morning Meeting": {
-            "days": [
-                "fri"
-            ],
-            "start_time": "09:40",
-            "end_time": "10:00"
-        },
-        "Corporate Collaborative": {
-            "days": [
-                "fri"
-            ],
-            "start_time": "10:00",
-            "end_time": "11:00"
         }
     },
     "holidays": [
         "Sep 07, 2026",
-        "Sep 21, 2026",
-        "Oct 01, 2026",
-        "Oct 02, 2026",
-        "Oct 26, 2026",
         "Nov 23, 2026",
         "Nov 24, 2026",
         "Nov 25, 2026",
