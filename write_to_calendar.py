@@ -89,10 +89,10 @@ def main():
 
     term_data = read_term_data()
     print("Adding all the classes")
-    # add_all_classes(term_data, verbosity=0)
+    add_all_classes(term_data, verbosity=0)
 
     print("\nRemoving events on holidays")
-    # clear_all_term_holidays(term_data, verbosity=0)
+    clear_all_term_holidays(term_data, verbosity=0)
 
     print()
 

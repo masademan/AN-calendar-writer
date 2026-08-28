@@ -416,13 +416,13 @@ def main():
         if ignore_answer:
             classes_to_ignore = choose_classes_to_ignore(json_file_path=separated_data[4], include_optional_classes=include_optional_classes)
 
-    # write_term_data(
-    #     has_file=json_answer,
-    #     readable=True,
-    #     classes_to_ignore=classes_to_ignore,
-    #     include_optional_classes=include_optional_classes,
-    #     separated_data=separated_data[:4],
-    # )
+    write_term_data(
+        has_file=json_answer,
+        readable=True,
+        classes_to_ignore=classes_to_ignore,
+        include_optional_classes=include_optional_classes,
+        separated_data=separated_data[:4],
+    )
 
     # write_term_data(has_file=answer=="y", readable=True, classes_to_ignore=["Astra Nova Book Club"])
 

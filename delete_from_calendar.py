@@ -149,7 +149,7 @@ def main():
     clear_console()
 
     term_data = read_term_data()
-    # delete_all_term_classes(term_data, verbosity=0)
+    delete_all_term_classes(term_data, verbosity=0)
 
 
 if __name__ == "__main__":
