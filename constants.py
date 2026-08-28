@@ -19,9 +19,10 @@ TERM_NAMES = ["fall", "winter", "spring"]
 EMPTY_CLASS_DATA = ("", {"days": [], "start_time": "-00:00", "end_time": "-00:00"})
 
 # Google calendar data
-CREDENTIALS_JSON_FILE = 'credentials/service_credentials.json'
-CALENDAR_ID = '[YOUR CALENDAR ID]@group.calendar.google.com'
-SCOPES = ['https://www.googleapis.com/auth/calendar']
+CREDENTIALS_JSON_FILE = "credentials/service_credentials.json"
+CLASS_CALENDAR_ID = "[CLASS CALENDAR ID]@group.calendar.google.com"
+VACATION_CALENDAR_ID = "[VACATION CALENDAR ID]@group.calendar.google.com"
+SCOPES = ["https://www.googleapis.com/auth/calendar"]
 SCHOOL_TO_CALENDAR_FORMAT = {
     "mon": "MO",
     "tue": "TU",
