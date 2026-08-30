@@ -33,7 +33,7 @@ def find_holiday_dates(search_start, search_end, verbosity=1):
         
         if not events:
             if verbosity == 2: print("No events found in this date range.")
-            return
+            return []
 
         # List to store our extracted dates
         holiday_dates = []
