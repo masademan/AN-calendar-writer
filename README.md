@@ -4,6 +4,9 @@ Upload the service account key credentials as "service_credentials.json". \
 Add the service account's email as an editor and manager of the Google Calendar you want to be writing to. \
 Also make sure that the default notifications is set to 5 minutes before every event in the school class calendar.
 
+BEFORE RUNNING ANY CODE, MAKE SURE TO RUN THE COMMAND "pip install -r requirements.txt". \
+This will install all the libraries that you don't already have.
+
 Edit the constants.py file and make the variable "CLASS_CALENDAR_ID" the Google Calendar ID of the Google Calendar you want to edit.
 
 And if you have another Google Calendar of the days off, add the service account to that calendar and make the permissions be able to read it. \
