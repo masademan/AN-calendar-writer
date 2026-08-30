@@ -5,6 +5,8 @@ Upload the service account key credentials as "service_credentials.json". \
 Add the service account's email as an editor and manager of the Google Calendar you want to be writing to. \
 Also make sure that the default notifications is set to 5 minutes before every event in the school class calendar.
 
+My python is 3.14.2, so make sure yours is around that version to replicate the results successfully.
+
 BEFORE RUNNING ANY CODE, MAKE SURE TO RUN THE COMMAND "pip install -r requirements.txt". \
 This will install all the libraries that you don't already have.
 
