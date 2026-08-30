@@ -1,3 +1,4 @@
+## Install and setup:
 Follow this tutorial to create a project: https://developers.google.com/workspace/calendar/api/quickstart/python \
 After that, go to IAM & Admin -> Service Accounts and make a service account with Owner permissions. Then create a new key for the service account. \
 Upload the service account key credentials as "service_credentials.json". \
@@ -13,6 +14,7 @@ And if you have another Google Calendar of the days off, add the service account
 You can allow the service account to make changes if you want, but it's not necessary. \
 Then edit the variable "VACATION_CALENDAR_ID" to make it the Google Calendar ID of the Calendar with the days off listed.
 
+## Use:
 To use the code:
 1. Run "py main.py" and start following the prompts
 2. If you already have a .json file of a term and year created from this program, skip to the next step. If not, select the "Write to json" option and continue
