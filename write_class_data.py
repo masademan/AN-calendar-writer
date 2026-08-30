@@ -42,7 +42,7 @@ def get_one_class_data():
     # Checking days
     day_errors = []
     for day in days:
-        if day not in constants.SCHOOL_DAYS:
+        if day not in constants.ALL_DAYS:
             day_errors.append(f"Day '{day}' is not valid")
 
     # Checking times
@@ -72,7 +72,7 @@ def get_one_class_data():
     stop_program = False
     if day_errors:
         print()
-        print(f"Days must be in {constants.SCHOOL_DAYS}", file=sys.stderr)
+        print(f"Days must be in {constants.ALL_DAYS}", file=sys.stderr)
         for error in day_errors:
             print(f"-- {error}", file=sys.stderr)
         stop_program = True

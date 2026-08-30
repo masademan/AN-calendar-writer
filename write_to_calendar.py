@@ -52,7 +52,7 @@ def add_one_class(term_data, class_name, verbosity=2):
 
     class_data = term_data["classes"][class_name]
     class_days = class_data["days"]
-    sorted_days = sorted(class_days, key=lambda day: constants.SCHOOL_DAYS.index(day))
+    sorted_days = sorted(class_days, key=lambda day: constants.ALL_DAYS.index(day))
     days_from_now = min((constants.ALL_DAYS.index(day) - int(term_begin_datetime.strftime("%w"))) % 7 for day in sorted_days)
 
     # start_datetime
