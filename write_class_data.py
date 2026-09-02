@@ -104,7 +104,6 @@ def get_all_class_data():
         class_name, class_data, had_error = get_one_class_data()
 
         if "\\q" in class_name:
-            print("The quit command has been found")
             input("Press enter to continue and exit")
             break
 
@@ -401,7 +400,7 @@ def get_yn_answer_to_question(question: str) -> bool:
 def main():
     json_answer = get_yn_answer_to_question("Do you have a .json from the AN schedule? (y/n) ")
 
-    separated_data = None
+    separated_data = []
     classes_to_ignore = []
     include_optional_classes = True
     if json_answer:

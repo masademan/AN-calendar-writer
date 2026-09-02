@@ -62,6 +62,7 @@ def get_class_data_file_name(school_year=None):
         print("Errors:", file=sys.stderr)
         for error in errors:
             print(f"-- {error}", file=sys.stderr)
+        sys.exit(-1)
 
     return f"class jsons/{term_name}_{school_year_str}_{int(school_year_str) + 1}.json"
 
